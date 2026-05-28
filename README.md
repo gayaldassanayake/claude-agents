@@ -7,6 +7,7 @@ A collection of custom agents and skills for [Claude Code](https://claude.ai/cla
 | Agent | Description |
 |-------|-------------|
 | [ballerina-bug-fixer](./ballerina-bug-fixer/) | Diagnoses and fixes bugs in Ballerina connector modules, verifies builds, and opens PRs |
+| [wso2-trigger-onboarder](./wso2-trigger-onboarder/) | Adds the low-code UX for a new WSO2 Integrator trigger across three repos, writes and runs LS tests, and opens three PRs |
 
 ## How to install an agent
 

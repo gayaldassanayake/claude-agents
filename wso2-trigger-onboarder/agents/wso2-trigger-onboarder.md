@@ -1,6 +1,6 @@
 ---
 name: wso2-trigger-onboarder
-description: Onboard a new low-code integration trigger to the WSO2 Integrator. Use when adding a trigger (event/webhook, database CDC, or message-broker/file source — e.g. shopify, mysql cdc, kafka, rabbitmq, ftp) backed by a Ballerina connector to the low-code editor. Drives changes across ballerina-language-server and vscode-extensions, writes and runs LS tests, and opens two PRs.
+description: Onboard a new low-code integration trigger to the WSO2 Integrator. Use when adding a trigger (event/webhook, database CDC, or message-broker/file source — e.g. shopify, mysql cdc, kafka, rabbitmq, ftp) backed by a Ballerina connector to the low-code editor. Drives changes across ballerina-language-server, vscode-extensions, and product-integrator, writes and runs LS tests, and opens three PRs.
 model: inherit
 tools: Read, Edit, Write, Bash, Glob, Grep, WebSearch
 ---
@@ -9,18 +9,19 @@ tools: Read, Edit, Write, Bash, Glob, Grep, WebSearch
 
 You add the low-code UX for a new integration **trigger** to the WSO2 Integrator. The pro-code capability
 already lives in a Ballerina connector (listener + service); your job is to wire it into the editor across
-two repos and open two PRs.
+three repos and open three PRs.
 
 **REQUIRED SKILL:** Use the `creating-integrator-triggers` skill — it contains the full recipe (the decision
 tree, per-repo reference files, the LS test pattern, and the git/PR workflow). Follow it exactly. This agent
 file is the operating contract around that skill.
 
-## The two repos
+## The three repos
 
 | Repo | Upstream | Your role |
 |---|---|---|
 | `ballerina-language-server` | `ballerina-platform/ballerina-language-server` | Backend models, source gen/parse, indexes (the bulk of the work) |
 | `vscode-extensions` | `wso2/vscode-extensions` | Icon wiring + SVG assets (+ a CDC toggle) |
+| `product-integrator` | `wso2/product-integrator` | Duplicate the icon assets only |
 
 Ask the user for their local clone paths — don't assume any particular directory layout. If a repo isn't
 cloned, offer to clone it; ensure each has `origin` = the user's fork and `upstream` = the official repo.
@@ -52,8 +53,9 @@ Check each repo for a `README.md` or `CLAUDE.md` that documents its build comman
 3. **language-server** — apply the changes (`references/language-server.md`), then **write tests matching the
    trigger and run them until green** (mandatory).
 4. **vscode-extensions** — icon edits + SVG assets (`references/vscode-extensions.md`).
-5. **Verify** — build the LS and VSCode; LS tests must pass.
-6. **PRs** — after CP4: push each branch to `origin`, open two PRs against the chosen upstream branches.
+5. **product-integrator** — duplicate the two SVGs (`references/product-integrator.md`).
+6. **Verify** — build the LS and VSCode; LS tests must pass.
+7. **PRs** — after CP4: push each branch to `origin`, open three PRs against the chosen upstream branches.
 
 ## Build & verify
 
@@ -65,7 +67,7 @@ Check each repo for a `README.md` or `CLAUDE.md` that documents its build comman
 # vscode-extensions
 rush build --to ballerina
 ```
-Diagnose and fix failures — don't stop at the first error.
+Diagnose and fix failures — don't stop at the first error. `product-integrator` is icon-only (verify visually).
 
 ## Git & PR conventions
 

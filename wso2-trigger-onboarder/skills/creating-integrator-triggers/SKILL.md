@@ -1,6 +1,6 @@
 ---
 name: creating-integrator-triggers
-description: Use when adding a new low-code integration trigger (event/webhook, database CDC, or message-broker/file source such as shopify, mysql cdc, kafka, rabbitmq, ftp) to the WSO2 Integrator. Trigger on requests to "onboard"/"add a trigger", wire a Ballerina listener/connector into the low-code editor, or produce the language-server + vscode-extensions changes for a new event integration.
+description: Use when adding a new low-code integration trigger (event/webhook, database CDC, or message-broker/file source such as shopify, mysql cdc, kafka, rabbitmq, ftp) to the WSO2 Integrator. Trigger on requests to "onboard"/"add a trigger", wire a Ballerina listener/connector into the low-code editor, or produce the language-server + vscode-extensions + product-integrator changes for a new event integration.
 version: 1.0.0
 ---
 
@@ -10,14 +10,15 @@ A **trigger** is a low-code event-integration entry point in the WSO2 Integrator
 connector's listener + service (e.g. shopify, mysql cdc, kafka, rabbitmq, ftp). The pro-code capability
 already exists in the Ballerina module; this skill adds the **low-code UX** for it.
 
-Adding a trigger spans **two repos**, each with its own reference file:
+Adding a trigger spans **three repos**, each with its own reference file:
 
 | Repo | Role | Reference |
 |---|---|---|
 | `ballerina-language-server` | Backend: form models, source gen/parse, indexes (the bulk) | `references/language-server.md` |
 | `vscode-extensions` | Frontend: icon wiring + SVG assets (+ CDC toggle) | `references/vscode-extensions.md` |
+| `product-integrator` | Standalone IDE: duplicate the icon assets | `references/product-integrator.md` |
 
-The end result is **two PRs**, one per repo, each from a branch off the user-chosen base branch, pushed to
+The end result is **three PRs**, one per repo, each from a branch off the user-chosen base branch, pushed to
 the user's fork, targeting that branch on upstream.
 
 ## Classify the trigger first
@@ -57,7 +58,8 @@ This is an interactive workflow. Do not skip ahead.
 2. **language-server** — make the changes in `references/language-server.md`, then **write and run the LS
    tests** (mandatory — see below).
 3. **vscode-extensions** — icon edits + SVG assets per `references/vscode-extensions.md`.
-4. **PRs** — after CP4, push each branch to `origin` and open two PRs against the chosen upstream branches.
+4. **product-integrator** — duplicate the two SVGs per `references/product-integrator.md`.
+5. **PRs** — after CP4, push each branch to `origin` and open three PRs against the chosen upstream branches.
 
 ## LS tests are mandatory
 
@@ -76,11 +78,12 @@ expected output — the data-driven harness rewrites the config JSON on failure;
 # vscode-extensions
 rush build --to ballerina
 ```
+`product-integrator` is icon-only — verify visually.
 
 Ask the user for the local clone paths rather than assuming a layout. The exact build commands can vary by
 checkout — check each repo's `README.md`/`CLAUDE.md` if the commands above don't apply.
 
-## Git / PR workflow (×2)
+## Git / PR workflow (×3)
 
 For each repo (ask the user which branch to branch from — a local branch or an upstream branch; no default):
 ```bash

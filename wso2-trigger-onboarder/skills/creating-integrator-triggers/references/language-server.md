@@ -4,7 +4,9 @@ The language server (LS) is the backend of the low-code editor. It turns a Balle
 listener/service into the form models, source-generation and source-parsing logic the editor uses.
 Adding a trigger here is the bulk of the work.
 
-Repo: `ballerina-language-server` (upstream `ballerina-platform/ballerina-language-server`).
+Repo: `ballerina-language-server` (upstream `ballerina-platform/ballerina-language-server`). On the **monorepo
+path** the same changes apply inside `wso2/ballerina-vscode`, with every path below prefixed by
+`packages/ballerina-language-server/` and the build run from that directory (see `references/ballerina-vscode.md`).
 
 Unless noted, all paths below are relative to:
 `service-model-generator/modules/service-model-generator-ls-extension/src/main/`

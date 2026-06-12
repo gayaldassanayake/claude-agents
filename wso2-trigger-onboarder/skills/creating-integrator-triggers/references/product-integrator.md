@@ -5,7 +5,16 @@ It does **not** re-implement icon logic or type detection — those come from `v
 trigger change here is duplicating the icon assets, which are loaded at runtime from the extension's `assets/`
 dir and are not symlinked/inherited from `vscode-extensions`.
 
-Repo: `product-integrator` (upstream `wso2/product-integrator`).
+Repo: `product-integrator` (upstream `wso2/product-integrator`). This step is required on **both** delivery
+paths (monorepo and old-repos) — it is independent of where the code/assets went.
+
+## Check first — may already be done
+
+The same trigger can be onboarded via both paths over time (a patch *and* a front-port), so its
+`product-integrator` icons may already have been submitted. **Before doing anything, ask the user whether a
+`product-integrator` icon PR for this trigger already exists**, and check the target branch for
+`wi/wi-extension/assets/{dark,light}-bi-<x>.svg`. If both are already present, **skip this repo entirely** —
+don't open a duplicate PR.
 
 ## Duplicate the two SVGs (no code changes)
 

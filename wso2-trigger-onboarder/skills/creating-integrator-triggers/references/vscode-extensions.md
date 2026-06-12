@@ -6,6 +6,13 @@ toggle). The form rendering itself is driven by the LS models, so there is no fo
 Repo: `vscode-extensions` (upstream `wso2/vscode-extensions`).
 Edit only files under `src/` — never the generated `build/`, `lib/`, `dist/`, or `resources/jslibs/` outputs.
 
+**These change points apply to both delivery paths.** On the **old-repos path** they land directly in this
+repo. On the **monorepo path** the *code* edits below land in `wso2/ballerina-vscode` under `packages/<pkg>/…`
+(drop the `workspaces/ballerina/` prefix — see `references/ballerina-vscode.md`), while the **icon assets**
+(SVG + font glyph) still belong to *this* repo: the monorepo consumes it as the `submodules/wso2-vscode-extensions`
+submodule, so on the monorepo path the assets ship via a **separate PR to this repo's submodule branch
+(`release/ballerina-5.12.x`)**, opened only after checking they don't already exist there.
+
 ## Icon mapping (3 edits)
 
 Three `getCustomEntryNodeIcon(type)` functions map a module name to the `bi-<x>` icon. Add a `case` to each.

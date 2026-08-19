@@ -40,6 +40,8 @@ Create an *artifact* that explores the SDK and its capabilities. Add a quiz on t
 
 ## Phase 4 — Ballerina API design
 
+Ask the developer if there are one or more Ballerina connector for a similar service they'd like used as a reference. If provided, use it for idiom and convention consistency. DO NOT blindly copy the structure.
+
 Come up with a design for the Ballerina API that wraps the SDK. Base this off the SCOPE.md. Include only the publicly exposed client, listener, service, types, errors, annotations, configurations, public functions etc. Do not implement any logic yet — give every public function and method a `panic error("not implemented")` body so the design compiles as-is.
 
 Expose this specification as a `spec.md` file. The `spec.md` should contain the Ballerina APIs added as code snippets. Document the spec with documentation comments explaining each construct. Any construct that cannot be expressed in Ballerina should be documented separately. (eg:- Listener/ service shapes, compiler plugin validations, etc). Ensure that the documentation comments are clear and concise.

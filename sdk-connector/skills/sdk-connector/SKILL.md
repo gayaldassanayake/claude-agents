@@ -20,7 +20,7 @@ Decide whether an SDK-based connector is actually the right approach here, or wh
 Create an *artifact* explaining the domain and the scope, with below sections:
 
 1. Domain - Domain is the subject area that the SDK operates in. You have to assume the developer has no prior knowledge of the domain. Explain the domain in plain language before any design conversation.
-2. Capabilities - Include what kind of capabilities exist in that domain. These are general capabilities of the service, not tied to any specific SDK. Add a quiz on the service and its capabilities.
+2. Capabilities - Include what kind of capabilities exist in that domain, with a summary and a deep dive for each with diagrams where necessary. These are general capabilities of the service, not tied to any specific SDK. Add a quiz on the service and its capabilities.
 
 Once the developer has understood the domain, negotiate the scope with the developer. Walk through the capability surface and ask, capability by capability, which are in scope for this connector version and which are explicitly excluded. Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a SCOPE.md as a list of capabilities that are in scope and out of scope.
 

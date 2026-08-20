@@ -8,8 +8,7 @@ description: Guides a developer end-to-end through generating a brand-new Baller
 This skill turns an existing Java SDK into a hand-written Ballerina connector through gated phases. Get explicit approval in each step before moving on to the next.
 
 ## Notes
-- When the skill mentions "artifact", it refers to a document created as specified in `references/artifact-generation.md`.
-- At the beginning of each phase, announce that the phase is starting, at the end of each phase, announce that the phase is complete. 
+- At the beginning of each phase, announce that the phase is starting, at the end of each phase, announce that the phase is complete.
 
 ## Phase 0 — Feasibility check
 
@@ -19,7 +18,7 @@ Decide whether an SDK-based connector is actually the right approach here, or wh
 
 ## Phase 1 — Domain education
 
-Ask the user if they want a domain knowledge refresher. If they don't, move directly to *phase 2 - scope negotiation*. If yes, create an *artifact* explaining the domain and the scope, with below sections:
+Ask the user if they want a domain knowledge refresher. If they don't, move directly to *phase 2 - scope negotiation*. If yes, create an *artifact* (see Artifact requirements) explaining the domain and the scope, with below sections:
 
 1. Domain - Domain is the subject area that the SDK operates in. You have to assume the developer has no prior knowledge of the domain. Explain the domain in plain language before any design conversation.
 2. Capabilities - Include what kind of capabilities exist in that domain, with a summary and a deep dive for each with diagrams where necessary. These are general capabilities of the service, not tied to any specific SDK. Add a quiz on the service and its capabilities.
@@ -31,7 +30,7 @@ Ask the user if they want a domain knowledge refresher. If they don't, move dire
 
 Once the developer has understood the domain, negotiate the scope with the developer. Walk through the capability surface and ask, capability by capability, which are in scope for this connector version and which are explicitly excluded.
 
-After the initial scope negotiation, if more than one SDK or library exists for this service, create an *artifact* that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons. Factor in the responses of the answers to the scope negotiation. Include the SDK choice as the final step of the scope negotiation.
+After the initial scope negotiation, if more than one SDK or library exists for this service, create an *artifact* (see Artifact requirements) that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons. Factor in the responses of the answers to the scope negotiation. Include the SDK choice as the final step of the scope negotiation.
 
 Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a SCOPE.md as a list of capabilities that are in scope and out of scope.
 
@@ -39,7 +38,7 @@ Use the Ask question tool with structured choice prompts, letting the developer 
 
 ## Phase 3 - SDK exploration
 
-Create an *artifact* that explores the SDK and its capabilities. Add a quiz on the SDK capabilities.
+Create an *artifact* (see Artifact requirements) that explores the SDK and its capabilities. Add a quiz on the SDK capabilities.
 
 **Hard gate.** Get explicit developer sign-off on SDK exploration before moving on.
 
@@ -51,7 +50,7 @@ Come up with a design for the Ballerina API that wraps the SDK. Base this off th
 
 Expose this specification as a `spec.md` file. The `spec.md` should contain the Ballerina APIs added as code snippets. Document the spec with documentation comments explaining each construct. Any construct that cannot be expressed in Ballerina should be documented separately. (eg:- Listener/ service shapes, compiler plugin validations, etc). Ensure that the documentation comments are clear and concise.
 
-Ask the developer if they want an additional *artifact* that explains each construct in the API design, and the reasoning behind the design decisions. If yes, create the artifact.
+Ask the developer if they want an additional *artifact* (see Artifact requirements) that explains each construct in the API design, and the reasoning behind the design decisions. If yes, create the artifact.
 
 Use the Ask question tool to gather feedback on the API design, and update the Ballerina API design in `spec.md` based on the feedback. Repeat this process until the developer approves the API design.
 
@@ -156,6 +155,7 @@ Ask the developer if they want to verify the connector works with GraalVM native
 
 ## References
 
+- Artifact requirements: every *artifact* created by this skill should prefer HTML with CSS/JS, falling back to well-structured markdown only if the harness can't render HTML. No ASCII diagrams — use real HTML/CSS diagrams and HTML lists. If a quiz is requested, include 5-10 MCQ questions at the end, medium difficulty (must understand the content to answer, no gotchas).
 - Use skill https://github.com/ballerina-platform/skills/tree/main/skills/ballerina for Ballerina code generation.
 - Allowed `Type` values - `Type/Connector`, `Type/Trigger`, `Type/Driver`. `Connector` if there are clients, `Trigger` if there are Listeners/Services. `Driver` if this is a driver containing only Java Dependencies. Can have multiple `Type/` keywords if the connector has both clients and Listeners/Services. `Area` can be `Area/Database`, `Area/Messaging`, `Area/Storage`, `Area/Utility`, etc. depending on the domain of the service.
 - Allowed `Area` values - `Area/AI`, `Area/Analytics`, `Area/Cloud`, `Area/Communication`, `Area/CRM`, `Area/Database`, `Area/Developer`, `Area/DevOps`, `Area/E-Commerce`, `Area/ERP`, `Area/Finance`, `Area/Healthcare`, `Area/HRMS`, `Area/Marketing`, `Area/Messaging`, `Area/Other`, `Area/Productivity`, `Area/Security`, `Area/Storage`

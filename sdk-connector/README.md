@@ -46,7 +46,5 @@ Do not use this skill if the service already has an OpenAPI specification, or ca
 sdk-connector/
 └── skills/
     └── sdk-connector/
-        ├── SKILL.md                       ← skill definition (copy to ~/.claude/skills/sdk-connector/)
-        └── references/
-            └── artifact-generation.md      ← conventions for the HTML/markdown artifacts each phase produces
+        └── SKILL.md    ← skill definition (copy to ~/.claude/skills/sdk-connector/)
 ```

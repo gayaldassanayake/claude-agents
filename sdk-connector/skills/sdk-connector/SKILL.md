@@ -99,9 +99,25 @@ Verify that the combined test coverage is at least 85%. If not, add more tests t
 
 ## Phase 9 — Standalone examples
 
+Pack and publish the ballerina module to the local repository, before generating the standalone examples.
+
+``` bash
+cd ballerina
+ballerina pack
+ballerina push --repository=local
+```
+
 Write three to four example programs living outside the test suite, to validate real-world usage independent of the automated tests. They should be in the <repo-root>/examples directory. Pick the examples that cover the most common use cases of the connector, with less overlap. Ask the developer for approval on the examples before writing them. Use the Ask question tool to gather feedback on the examples and update them based on the feedback. Repeat this process until the developer approves the examples.
 
-The examples should be self-contained and runnable with required sandbox configurations (docker-compose etc), and a README.md file explaining how to run the examples.
+The examples should be self-contained and runnable with required sandbox configurations (docker-compose etc), and a README.md file explaining how to run the examples. In their `Ballerina.toml` include the following table to specify the dependency on the connector module.
+
+``` toml
+[[dependency]]
+org = "<connector-org>"
+name = "<connector-name>"
+version = "<connector-version>"
+repository = "local"
+```
 
 **Hard gate.** Get explicit developer sign-off on the examples before moving on to the next phase.
 

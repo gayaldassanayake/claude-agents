@@ -7,7 +7,9 @@ description: Guides a developer end-to-end through generating a brand-new Baller
 
 This skill turns an existing Java SDK into a hand-written Ballerina connector through gated phases. Get explicit approval in each step before moving on to the next.
 
-Note: When the skill mentions "artifact", it refers to a document created as specified in `references/artifact-generation.md`.
+## Notes
+- When the skill mentions "artifact", it refers to a document created as specified in `references/artifact-generation.md`.
+- At the beginning of each phase, announce that the phase is starting, at the end of each phase, announce that the phase is complete. 
 
 ## Phase 0 — Feasibility check
 
@@ -15,22 +17,25 @@ Decide whether an SDK-based connector is actually the right approach here, or wh
 
 **Hard gate.** If SDK-based generation isn't the right call, explain why, point at the better alternative, and stop — produce nothing further. Otherwise, resume to the next phase.
 
-## Phase 1 — Domain education and scope negotiation
+## Phase 1 — Domain education
 
-Create an *artifact* explaining the domain and the scope, with below sections:
+Ask the user if they want a domain knowledge refresher. If they don't, move directly to *phase 2 - scope negotiation*. If yes, create an *artifact* explaining the domain and the scope, with below sections:
 
 1. Domain - Domain is the subject area that the SDK operates in. You have to assume the developer has no prior knowledge of the domain. Explain the domain in plain language before any design conversation.
 2. Capabilities - Include what kind of capabilities exist in that domain, with a summary and a deep dive for each with diagrams where necessary. These are general capabilities of the service, not tied to any specific SDK. Add a quiz on the service and its capabilities.
 
-Once the developer has understood the domain, negotiate the scope with the developer. Walk through the capability surface and ask, capability by capability, which are in scope for this connector version and which are explicitly excluded. Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a SCOPE.md as a list of capabilities that are in scope and out of scope.
+**Hard gate.** Get explicit developer sign-off on both the domain understanding and the SDK selection before moving on.
 
-**Hard gate.** Get explicit developer sign-off on both the domain understanding and the negotiated scope before moving on.
+## Phase 2 - Scope negotiation
 
-## Phase 2 — SDK selection
 
-If there is only one SDK or library available for the service, inform the developer, and skip this phase. If more than one SDK or library exists for this service, evaluate the realistic candidates and recommend one specific choice with reasons. Use the scope defined in phase 1 to evaluate the SDKs. Create an *artifact* that includes the evaluation and recommendation.
+Once the developer has understood the domain, negotiate the scope with the developer. Walk through the capability surface and ask, capability by capability, which are in scope for this connector version and which are explicitly excluded.
 
-**Hard gate.** If there are multiple SDKs or libraries available, get explicit approval on the SDK choice before SDK exploration begins.
+After the initial scope negotiation, if more than one SDK or library exists for this service, create an *artifact* that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons. Factor in the responses of the answers to the scope negotiation. Include the SDK choice as the final step of the scope negotiation.
+
+Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a SCOPE.md as a list of capabilities that are in scope and out of scope.
+
+**Hard gate.** Get explicit developer sign-off on both the domain understanding, the SDK choice (if applicable), and the negotiated scope before moving on.
 
 ## Phase 3 - SDK exploration
 
@@ -136,6 +141,5 @@ Ask the developer if they want to verify the connector works with GraalVM native
 ## References
 
 - Use skill https://github.com/ballerina-platform/skills/tree/main/skills/ballerina for Ballerina code generation.
-- Use the template https://github.com/gayaldassanayake/sdk-connector-template to get started with the implementation.
 - Allowed `Type` values - `Type/Connector`, `Type/Trigger`, `Type/Driver`. `Connector` if there are clients, `Trigger` if there are Listeners/Services. `Driver` if this is a driver containing only Java Dependencies. Can have multiple `Type/` keywords if the connector has both clients and Listeners/Services. `Area` can be `Area/Database`, `Area/Messaging`, `Area/Storage`, `Area/Utility`, etc. depending on the domain of the service.
 - Allowed `Area` values - `Area/AI`, `Area/Analytics`, `Area/Cloud`, `Area/Communication`, `Area/CRM`, `Area/Database`, `Area/Developer`, `Area/DevOps`, `Area/E-Commerce`, `Area/ERP`, `Area/Finance`, `Area/Healthcare`, `Area/HRMS`, `Area/Marketing`, `Area/Messaging`, `Area/Other`, `Area/Productivity`, `Area/Security`, `Area/Storage`

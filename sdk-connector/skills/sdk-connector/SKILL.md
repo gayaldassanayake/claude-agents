@@ -27,11 +27,9 @@ Ask the user if they want a domain knowledge refresher. If they don't, move dire
 
 ## Phase 2 - SDK choice
 
-Ask a set of coarse, domain-shape questions — just enough to distinguish realistic SDK candidates. Do not walk the full capability list yet — that happens in Phase 4.
+If there is only one SDK or library available for this service, mention that to the user and skip this phase and move on to *Phase 3 - SDK exploration*.
 
-Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer.
-
-If more than one SDK or library exists for this service, create an *artifact* (see [Artifact requirements](#artifact-requirements)) that includes a survey of the SDKs. Evaluate the realistic candidates, with their capabilities, and recommend one specific choice with reasons, factoring in the coarse answers above, and the general landscape.
+Otherwise, create an *artifact* (see [Artifact requirements](#artifact-requirements)) that includes a survey of the SDKs. Evaluate the realistic candidates, with a capability comparison. Recommend one specific choice with reasons.
 
 After generating the artifact, use the Ask question tool to gather user's final decision on the SDK choice.
 
@@ -45,9 +43,7 @@ Create an *artifact* (see [Artifact requirements](#artifact-requirements)) that 
 
 ## Phase 4 - Detailed scope negotiation
 
-Walk the domain's capability surface capability-by-capability. Specify if each capability is built-in to the SDK, assembled from SDK primitives, or unsupported.
-
-If user wants to have an unsupported capability, ask the developer to drop the capability, or reconsider the SDK choice (loop back to Phase 2) explicitly.
+Walk the domain's capability surface capability-by-capability. Specify if each capability is built-in to the SDK, assembled from SDK primitives.
 
 Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a `scope.md` as a list of capabilities that are in scope and out of scope.
 

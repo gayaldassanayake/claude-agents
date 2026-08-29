@@ -18,23 +18,22 @@ Decide whether an SDK-based connector is actually the right approach here, or wh
 
 ## Phase 1 — Domain education
 
-Ask the user if they want a domain knowledge refresher. If they don't, move directly to *phase 2 - scope negotiation*. If yes, create an *artifact* (see Artifact requirements) explaining the domain and the scope, with below sections:
+Ask the user if they want a domain knowledge refresher. If they don't, move directly to *phase 2 - SDK choice*. If yes, create an *artifact* (see Artifact requirements) explaining the domain and the scope, with below sections:
 
 1. Domain - Domain is the subject area that the SDK operates in. You have to assume the developer has no prior knowledge of the domain. Explain the domain in plain language before any design conversation.
 2. Capabilities - Include what kind of capabilities exist in that domain, with a summary and a deep dive for each with diagrams where necessary. These are general capabilities of the service, not tied to any specific SDK. Add a quiz on the service and its capabilities.
 
-**Hard gate.** Get explicit developer sign-off on both the domain understanding and the SDK selection before moving on.
+**Hard gate.** Get explicit developer sign-off on the domain understanding before moving on.
 
-## Phase 2 - Scope negotiation
+## Phase 2 - SDK choice
 
+Ask a set of coarse, domain-shape questions — just enough to distinguish realistic SDK candidates. Do not walk the full capability list yet — that happens in Phase 4.
 
-Once the developer has understood the domain, negotiate the scope with the developer. Walk through the capability surface and ask, capability by capability, which are in scope for this connector version and which are explicitly excluded.
+If more than one SDK or library exists for this service, create an *artifact* (see Artifact requirements) that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons, factoring in the coarse answers above, and the general landscape. Include the SDK choice as the final step of this phase.
 
-After the initial scope negotiation, if more than one SDK or library exists for this service, create an *artifact* (see Artifact requirements) that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons. Factor in the responses of the answers to the scope negotiation. Include the SDK choice as the final step of the scope negotiation.
+Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer.
 
-Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a SCOPE.md as a list of capabilities that are in scope and out of scope.
-
-**Hard gate.** Get explicit developer sign-off on both the domain understanding, the SDK choice (if applicable), and the negotiated scope before moving on.
+**Hard gate.** Get explicit developer sign-off on the SDK choice before moving on.
 
 ## Phase 3 - SDK exploration
 
@@ -42,11 +41,21 @@ Create an *artifact* (see Artifact requirements) that explores the SDK and its c
 
 **Hard gate.** Get explicit developer sign-off on SDK exploration before moving on.
 
-## Phase 4 — Ballerina API design
+## Phase 4 - Detailed scope negotiation
+
+Walk the domain's capability surface capability-by-capability. Specify if each capability is built-in to the SDK, assembled from SDK primitives, or unsupported.
+
+If user wants to have an unsupported capability, ask the developer to drop the capability, or reconsider the SDK choice (loop back to Phase 2) explicitly.
+
+Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer. Curate the final scope from the feedback and write it into a `scope.md` as a list of capabilities that are in scope and out of scope.
+
+**Hard gate.** Get explicit developer sign-off on the negotiated scope before moving on.
+
+## Phase 5 — Ballerina API design
 
 Ask the developer if there are one or more Ballerina connector for a similar service they'd like used as a reference. If provided, use it for idiom and convention consistency. DO NOT blindly copy the structure.
 
-Come up with a design for the Ballerina API that wraps the SDK. Base this off the SCOPE.md. Include only the publicly exposed client, listener, service, types, errors, annotations, configurations, public functions etc. Do not implement any logic yet — give every public function and method a `panic error("not implemented")` body so the design compiles as-is.
+Come up with a design for the Ballerina API that wraps the SDK. Base this off the `scope.md`. Include only the publicly exposed client, listener, service, types, errors, annotations, configurations, public functions etc. Do not implement any logic yet — give every public function and method a `panic error("not implemented")` body so the design compiles as-is.
 
 Expose this specification as a `spec.md` file. The `spec.md` should contain the Ballerina APIs added as code snippets. Document the spec with documentation comments explaining each construct. Any construct that cannot be expressed in Ballerina should be documented separately. (eg:- Listener/ service shapes, compiler plugin validations, etc). Ensure that the documentation comments are clear and concise.
 
@@ -62,7 +71,7 @@ Use the Ballerina skill specified in the References section when creating the `s
 
 Identify whether any part of the finalized API needs compile-time validation that only a Ballerina compiler plugin can provide (required annotation fields, invalid listener signatures, invalid config combinations). If a plugin is warranted, inform the developer specifically which validations it would cover ("X, Y, and Z need compile-time validation because ..."), and ask for approval/ disapproval.
 
-## Phase 5 - Create connector scaffold
+## Phase 6 - Create connector scaffold
 
 Clone the github repository if the developer provides one. If they do not, set up the initial code repository structure in a new repository. Create the repository structure using the template - https://github.com/gayaldassanayake/sdk-connector-template. Replace the placeholders in the scaffold with the appropriate values. If you need inputs from the developer, use the Ask question tool to gather feedback. Use `TEMPLATE.md` for the list of placeholders and their descriptions. Once the scaffold is created, delete the `TEMPLATE.md` file from the scaffold.
 
@@ -70,7 +79,7 @@ If a compiler plugin is approved, keep the compiler-plugin, compiler-plugin-test
 
 **Hard gate.** Get explicit approval on the connector scaffold before moving on to the next phase.
 
-## Phase 6 — Test suite (before implementation)
+## Phase 7 — Test suite (before implementation)
 
 Write a comprehensive test suite before any implementation code exists. This should cover end-to-end tests. Use sandboxed instance of the service where possible; tests can rely on it (Docker images etc). You should present different local setup options to the developer and ask for approval on which one to use.
 
@@ -78,9 +87,9 @@ Ballerina tests are a must. However, based on the service, you can also write Ja
 
 **Hard gate.** Get explicit developer sign-off on the test suite before moving on to the next phase.
 
-## Phase 7 — Implementation
+## Phase 8 — Implementation
 
-Move the spec.md file created in phase 4 into <repo-root>/docs/spec/spec.md. This is the finalized API specification.
+Move the spec.md file created in phase 5 into <repo-root>/docs/spec/spec.md. This is the finalized API specification.
 
 Create a TODO list of tasks to implement the connector based on the `spec.md`. Sort the tasks by priority and complexity. 
 
@@ -90,13 +99,13 @@ Once all tasks are completed, run the full test suite and fix issues iteratively
 
 **Hard gate.** Get explicit developer sign-off on the implementation before moving on to the next phase.
 
-## Phase 8 — Test coverage
+## Phase 9 — Test coverage
 
 Verify that the combined test coverage is at least 85%. If not, add more tests to increase the coverage. Use the Ask question tool to gather feedback on the test coverage and update the test suite based on the feedback. Repeat this process until the developer approves the test coverage.
 
 **Hard gate.** Get explicit developer sign-off on the test coverage before moving on to the next phase.
 
-## Phase 9 — Standalone examples
+## Phase 10 — Standalone examples
 
 Pack and publish the ballerina module to the local repository, before generating the standalone examples.
 
@@ -120,7 +129,7 @@ repository = "local"
 
 **Hard gate.** Get explicit developer sign-off on the examples before moving on to the next phase.
 
-## Phase 10 — Documentation
+## Phase 11 — Documentation
 
 - Improve the connector's user-facing README (`ballerina/README.md`, published to Ballerina Central). The scaffold should already have a ballerina/README.md file with a template. Enhance the README.md file with the following sections:
   - Overview
@@ -145,11 +154,11 @@ repository = "local"
   - icon = "icon.png" # Ask the developer for an icon (png). save it as `ballerina/icon.png`.
   - documentation = "The URL of the documentation for the connector"
 
-- Confirm every public Ballerina construct already has a doc comment from Phase 4 — this phase checks that's actually true rather than writing them from scratch.
+- Confirm every public Ballerina construct already has a doc comment from Phase 5 — this phase checks that's actually true rather than writing them from scratch.
 
 **Hard gate.** Get explicit developer sign-off on the documentation before moving on to the next phase.
 
-## Phase 11 - GraalVM verification
+## Phase 12 - GraalVM verification
 
 Ask the developer if they want to verify the connector works with GraalVM native image. If yes, use skill https://github.com/ballerina-platform/ballerina-library/tree/graalvm-skills/agent-skills/skills/making-graalvm-compatible to verify this. If no, skip this step.
 

@@ -5,9 +5,9 @@ A Claude Code skill that guides a developer end-to-end through generating a bran
 ## What it does
 
 - Runs a feasibility check before committing to an SDK-based approach (vs. OpenAPI, a simple HTTP wrapper, or a webhook)
-- Explains the domain and negotiates connector scope with the developer, capability by capability
-- Evaluates and recommends an SDK when more than one candidate exists
-- Explores the chosen SDK's capabilities
+- Explains the domain, then picks an SDK using coarse domain-shape questions and, when more than one candidate exists, a comparison and recommendation
+- Explores the chosen SDK's capabilities and builds a native/assembled/bespoke/unsupported inventory against them
+- Negotiates connector scope with the developer capability by capability, using that inventory so every decision is cost-informed
 - Designs the public Ballerina API surface (`spec.md`) before any implementation exists, and identifies where a compiler plugin is warranted
 - Scaffolds the connector repository from the [sdk-connector-template](https://github.com/gayaldassanayake/sdk-connector-template)
 - Writes the test suite before implementation, then implements against it until green

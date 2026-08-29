@@ -29,9 +29,11 @@ Ask the user if they want a domain knowledge refresher. If they don't, move dire
 
 Ask a set of coarse, domain-shape questions — just enough to distinguish realistic SDK candidates. Do not walk the full capability list yet — that happens in Phase 4.
 
-If more than one SDK or library exists for this service, create an *artifact* (see [Artifact requirements](#artifact-requirements)) that includes a survey of the SDKs. Evaluate the realistic candidates and recommend one specific choice with reasons, factoring in the coarse answers above, and the general landscape. Include the SDK choice as the final step of this phase.
-
 Use the Ask question tool with structured choice prompts, letting the developer add free-text reasoning for each answer.
+
+If more than one SDK or library exists for this service, create an *artifact* (see [Artifact requirements](#artifact-requirements)) that includes a survey of the SDKs. Evaluate the realistic candidates, with their capabilities, and recommend one specific choice with reasons, factoring in the coarse answers above, and the general landscape.
+
+After generating the artifact, use the Ask question tool to gather user's final decision on the SDK choice.
 
 **Hard gate.** Get explicit developer sign-off on the SDK choice before moving on.
 
